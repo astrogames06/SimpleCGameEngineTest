@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>raylib web game</title>
+
+    <style>
+        body { margin: 0px; }
+        canvas.emscripten { border: 0px none; background-color: black; }
+    </style>
+    </head>
+    <body>
+        <textarea id="output" rows="20" cols="80"></textarea>
+        <script>
+            var Module = {
+                onRuntimeInitialized: function () {
+                    console.log("onRuntimeInitialized RUN!");
+                },
+                print: (function() {
+                    var element = document.getElementById('output');
+                    if (element) element.value = ''; // clear browser cache
+                    return function(text) {
+                        if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+                        console.log(text);
+                        if (element) {
+                          element.value += text + "\n";
+                          element.scrollTop = element.scrollHeight; // focus on bottom
+                        }
+                    };
+                })(),
+            };
+        </script>
+        <script src="index.js"></script>
+    </body>
+</html>

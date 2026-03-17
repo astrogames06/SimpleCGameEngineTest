@@ -1,0 +1,1 @@
+emcc main.c entity.c player.c -o index.js
